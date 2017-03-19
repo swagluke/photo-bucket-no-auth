@@ -1,19 +1,19 @@
 <nav class="navbar navbar-inverse">
   <div class="container">
     <h1>
-      Photo Bucket No Auth
+      {{titleFirebase}}
     </h1>
   </div>
-
 </nav>
+
 <div class="container">
   <div class="well well-lg">
     <form #mqForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <input required type="text" class="form-control" name="imageURL" placeholder="imageURL" [(ngModel)]="formPhotoBucketNoAuth.imageURL"><br>
+        <input required type="text" class="form-control" name="imageURL" placeholder="Image URL" [(ngModel)]="formPhotoBucketNoAuth.imageURL"><br>
       </div>
       <div class="form-group">
-        <input required type="text" class="form-control" name="caption" placeholder="caption" [(ngModel)]="formPhotoBucketNoAuth.caption">
+        <input required type="text" class="form-control" name="caption" placeholder="Caption" [(ngModel)]="formPhotoBucketNoAuth.caption">
       </div>
       <button [disabled]="!mqForm.form.valid" type="submit" class="btn btn-default pull-right">
         {{this.formPhotoBucketNoAuth.$key ? 'Edit' : 'Submit'}}
@@ -23,18 +23,19 @@
   </div>
 </div>
 <hr>
+
 <div id="wrapper">
   <div id="columns">
-    <div class="pin" *ngFor="hiddenIntentionally">
+    <div class="pin" *ngFor="let formPhotoBucketNoAuth of photoBucketNoAuthStream | async | reverse">
       <div class="pull-right edit-actions">
         <button type="button" class="btn btn-success btn-xs">
-          <span class="glyphicon glyphicon-pencil" hiddenIntentionally></span>
+          <span class="glyphicon glyphicon-pencil" (click)="edit(formPhotoBucketNoAuth)" ></span>
         </button>
         <button type="button" class="btn btn-danger btn-xs">
-          <span class="glyphicon glyphicon-trash" hiddenIntentionally></span>
+          <span class="glyphicon glyphicon-trash" (click)="delete(formPhotoBucketNoAuth.$key)"></span>
         </button>
       </div>
-      <img [src]="formPhotoBucketNoAuth.imageURL" alt="A photo">
+      <img [src]="formPhotoBucketNoAuth.imageUrl" alt="A photo">
       <p class="caption">{{ formPhotoBucketNoAuth.caption }}</p>
     </div>
   </div>

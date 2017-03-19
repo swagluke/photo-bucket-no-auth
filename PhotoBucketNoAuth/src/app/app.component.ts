@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from "angularfire2";
-
+import * as firebase from "firebase";
 interface PhotoBucketNoAuth {
   imageURL: string;
   caption: string;
@@ -10,7 +10,7 @@ interface PhotoBucketNoAuth {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   formPhotoBucketNoAuth: PhotoBucketNoAuth = {
@@ -19,9 +19,15 @@ export class AppComponent {
   };
 
   photoBucketNoAuthStream: FirebaseListObservable<PhotoBucketNoAuth[]>;
+  private titleFirebase: string = "Photo Bucket No Auth";
 
   constructor(private af: AngularFire) {
     this.photoBucketNoAuthStream = af.database.list("/imageURL");
+    firebase.database().ref().child("/title").on("value",
+        (snapshot: firebase.database.DataSnapshot) => {
+            this.titleFirebase = snapshot.val();
+        }
+    );
   }
 
   onSubmit(): void {
