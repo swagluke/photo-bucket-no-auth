@@ -1,0 +1,19 @@
+{
+  "rules": {
+    ".read": "true",
+    ".write": "true",
+    "photos": {
+      "$photo": {
+        "imageURL": {
+          ".validate": "newData.isString()"
+        },
+        "caption": {
+          ".validate": "newData.isString()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
+  }
+}
