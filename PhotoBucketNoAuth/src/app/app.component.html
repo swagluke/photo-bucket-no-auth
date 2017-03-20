@@ -26,17 +26,17 @@
 
 <div id="wrapper">
   <div id="columns">
-    <div class="pin" *ngFor="let formPhotoBucketNoAuth of photoBucketNoAuthStream | async | reverse">
+    <div class="pin" *ngFor="let photo of photoBucketNoAuthStream | async | reverse">
       <div class="pull-right edit-actions">
         <button type="button" class="btn btn-success btn-xs">
-          <span class="glyphicon glyphicon-pencil" (click)="edit(formPhotoBucketNoAuth)" ></span>
+          <span class="glyphicon glyphicon-pencil" (click)="edit(photo)" ></span>
         </button>
         <button type="button" class="btn btn-danger btn-xs">
-          <span class="glyphicon glyphicon-trash" (click)="delete(formPhotoBucketNoAuth.$key)"></span>
+          <span class="glyphicon glyphicon-trash" (click)="delete(photo.$key)"></span>
         </button>
       </div>
-      <img [src]="formPhotoBucketNoAuth.imageUrl" alt="A photo">
-      <p class="caption">{{ formPhotoBucketNoAuth.caption }}</p>
+      <img [src]="photo.imageUrl" alt="A photo">
+      <p class="caption">{{ photo.caption }}</p>
     </div>
   </div>
 </div>
